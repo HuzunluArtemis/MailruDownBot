@@ -1,0 +1,51 @@
+{
+  "name": "Telegram MailruDownBot",
+  "description": "Telegram Mailru Downloader Bot. Demo @MailruDownBot",
+    "keywords": [
+      "telegram",
+      "mailru"
+    ],
+    "repository": "https://github.com/HuzunluArtemis",
+    "success_url": "https://t.me/HuzunluArtemis",
+    "website": "https://t.me/HuzunluArtemis",
+    "env": {
+      "ENV": {
+        "description": "Setting this to ANYTHING will enable webhooks when in env mode",
+        "value": "ANYTHING",
+        "required": false
+      },
+      "APP_ID": {
+        "description": "Get this value from https://my.telegram.org",
+        "value": "",
+        "required": true
+      },
+      "API_HASH": {
+        "description": "Get this value from https://my.telegram.org",
+        "value": "",
+        "required": true
+      },
+      "BOT_TOKEN": {
+        "description": "get this value from @BotFather",
+        "value": "",
+        "required": true
+      },
+      "OWNER_ID": {
+        "description": "type /id to @missrose_bot",
+        "value": "",
+        "required": false
+      },
+      "FORCE_SUBSCRIBE_CHANNEL": {
+        "description": "starts with -100 or channel username",
+        "value": "",
+        "required": false
+      }
+    },
+    "stack": "container",
+    "formation": {
+      "worker": {
+        "quantity": 1,
+        "size": "free"
+      }
+    }
+  }
+  
