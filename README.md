@@ -8,6 +8,12 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/HuzunluArtemis/MailruDownBot)
 
+## Features
+
+- Task Quee
+- Logger, Pinger, Shell executer
+- Force Subscribe
+
 ## Setting up config file
 
 - `BOT_TOKEN`: Telegram Bot Token. Example: `3asd2a2sd32:As56das65d2as:ASd2a6s3d26as`
