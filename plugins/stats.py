@@ -44,7 +44,9 @@ def getRandomUserAgent():
     return agents[random.randint(0, len(agents)-1)]
 
 def getHerokuDetails(h_api_key, h_app_name):
-    if (not h_api_key) or (not h_app_name): return None
+    if (not h_api_key) or (not h_app_name):
+        LOGGER.info("if you want heroku dyno stats, read readme.")
+        return None
     try:
         heroku_api = "https://api.heroku.com"
         Heroku = heroku3.from_key(h_api_key)

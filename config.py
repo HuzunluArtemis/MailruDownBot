@@ -15,8 +15,8 @@ class Config:
     FORCE_DOC_UPLOAD = os.environ.get('FORCE_DOC_UPLOAD', "False").lower() == "true"
     LOG_CHANNEL = os.environ.get('LOG_CHANNEL', "")
 
-    HEROKU_API_KEY  = os.environ.get('HEROKU_API_KEY ', "")
-    HEROKU_APP_NAME  = os.environ.get('HEROKU_APP_NAME ', "")
+    HEROKU_API_KEY = os.environ.get('HEROKU_API_KEY', "")
+    HEROKU_APP_NAME = os.environ.get('HEROKU_APP_NAME', "")
 
     try:
         MAX_FILESIZE = int(os.environ.get('MAX_FILESIZE', ''))
@@ -41,7 +41,7 @@ class Config:
     JOIN_BUTTON_STR = os.environ.get('JOIN_BUTTON_STR', "🇬🇧 Join / 🇹🇷 Katıl")
     
     # fixing vars
-    if FORCE_SUBSCRIBE_CHANNEL == "" or FORCE_SUBSCRIBE_CHANNEL == " " or FORCE_SUBSCRIBE_CHANNEL == None: FORCE_SUBSCRIBE_CHANNEL = None # bu satıra dokunmayın.
-    if LOG_CHANNEL == "" or LOG_CHANNEL == " " or LOG_CHANNEL == None: LOG_CHANNEL = None # bu satıra dokunmayın.
-    if HEROKU_API_KEY  == "" or HEROKU_API_KEY == " " or HEROKU_API_KEY == None: HEROKU_API_KEY = None # bu satıra dokunmayın.
-    if HEROKU_APP_NAME  == "" or HEROKU_APP_NAME == " " or HEROKU_APP_NAME == None: HEROKU_APP_NAME = None # bu satıra dokunmayın.
+    if FORCE_SUBSCRIBE_CHANNEL == "" or FORCE_SUBSCRIBE_CHANNEL == " " or len(str(FORCE_SUBSCRIBE_CHANNEL)) == 0: FORCE_SUBSCRIBE_CHANNEL = None # bu satıra dokunmayın.
+    if LOG_CHANNEL == "" or LOG_CHANNEL == " " or len(str(LOG_CHANNEL)) == 0: LOG_CHANNEL = None # bu satıra dokunmayın.
+    if HEROKU_API_KEY  == "" or HEROKU_API_KEY == " " or len(HEROKU_API_KEY) == 0: HEROKU_API_KEY = None # bu satıra dokunmayın.
+    if HEROKU_APP_NAME  == "" or HEROKU_APP_NAME == " " or len(HEROKU_APP_NAME) == 0: HEROKU_APP_NAME = None # bu satıra dokunmayın.
