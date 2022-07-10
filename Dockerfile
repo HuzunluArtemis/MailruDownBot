@@ -1,5 +1,5 @@
 FROM python:latest
-RUN apt-get -y update && apt-get install -y python3 python3-pip git locales
+RUN apt-get -y update && apt-get install -y python3 python3-pip git locales aria2
 # RUN apt-get -y upgrade
 RUN apt-get -y autoremove && apt-get -y autoclean
 RUN locale-gen en_US.UTF-8

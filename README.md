@@ -11,18 +11,37 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 ## Features
 
 - Task Quee
-- Logger, Pinger, Shell executer
+- Auth users or public
+- Limit download size
 - Force Subscribe
+- Logger, Pinger, Shell executer
+
+## To-Do
+
+- Add download status like upload status
+- Add folder download
 
 ## Setting up config file
 
 - `BOT_TOKEN`: Telegram Bot Token. Example: `3asd2a2sd32:As56das65d2as:ASd2a6s3d26as`
 - `APP_ID`: Telegram App ID. Example: `32523453`
 - `API_HASH`: Telegram Api Hash. Example: `asdasdas6d265asd26asd6as1das`
-- `OWNER_ID`: give your owner id # if given 0 shell will not works. go @missrose_bot type /id
+- `AUTH_IDS`: Auth only some groups or users. If you want public, leave it empty or give `0`. Example: `-100656 56191 -10056561`
+- `OWNER_ID`: Bot's owner id. Send `/id` to `t.me/MissRose_bot` in private to get your id.
+- `MAX_FILESIZE`: Allowed max filesize in bytes. Default is telegram's maximum filesize.
+- `USE_ARIA2`: Use aria2 for downloads. Faster. Example: `False` Default: `True`
+- `LOG_CHANNEL`: Log all downloads for spammers etc. Give channel id or simply your id.
 - `CHANNEL_OR_CONTACT`: your users contact link. give your username. example: HuzunluArtemis
 - `FORCE_SUBSCRIBE_CHANNEL`: forcesub channel. optional. give channel id like `-1006616516165` or channel username like `HuzunluArtemis`
 - Dont use heroku-20 or heroku-18. Use container. Use button.
+- `FORCE_DOC_UPLOAD`: Force send all files as document. Without compress videos, photos etc. Example: `True` Default: `False`
+- `PROGRESS`: Progress string with 6 variables. See `config.py`.
+- `PROGRESSBAR_LENGTH`: Progressbar length. See `config.py`.
+- `FINISHED_PROGRESS_STR`: Finished Progress Char. Default: `●`
+- `UN_FINISHED_PROGRESS_STR`: Unfinished Progress Char. Default: `○`
+- `JOIN_CHANNEL_STR`: Join channel warning string. See `config.py`.
+- `YOU_ARE_BANNED_STR`: Banned user string. See `config.py`.
+- `JOIN_BUTTON_STR`: Join button string. See `config.py`.
 
 ## Lisans
 

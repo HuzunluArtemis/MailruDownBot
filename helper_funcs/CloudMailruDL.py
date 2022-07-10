@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 # modified for this repo https://huzunluartemis.github.io/MailruDownBot/
 
 import os
