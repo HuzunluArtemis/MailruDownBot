@@ -24,7 +24,17 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 - Add download status like upload status
 - Add folder download
 
-## Setting up config file
+## Bot Commands (Set in [@BotFather](https://t.me/BotFather))
+
+```
+start - bot help
+save - reply a photo to save thumbnail
+clear - clear thumbnail
+show - show thumbnail
+stats - bot statistics
+```
+
+## Environment Variables
 
 - `BOT_TOKEN`: Telegram Bot Token. Example: `3asd2a2sd32:As56das65d2as:ASd2a6s3d26as`
 - `APP_ID`: Telegram App ID. Example: `32523453`
