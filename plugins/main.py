@@ -1,10 +1,8 @@
 # https://huzunluartemis.github.io/MailruDownBot/
 
-import asyncio
 import json
 import shutil
 import time
-import aria2p
 from pyrogram.types.messages_and_media.message import Message
 from bot import LOGGER
 from config import Config
@@ -16,7 +14,6 @@ import subprocess
 from pyrogram import Client, filters
 from pyrogram.enums.parse_mode import ParseMode
 from os import popen
-from helper_funcs.init_aria2 import get_aria2, init_aria2
 from helper_funcs.progress import humanbytes, progress_for_pyrogram
 
 # aria2 = get_aria2()
@@ -75,17 +72,24 @@ def run_task(message: Message, duzenlenecek: Message):
         if stderr: logstr += "#stderr:\n\n" + stderr
         LOGGER.info(logstr)
         
-        # upload
+        # control
         inenler = list(absoluteFilePaths("downloads"))
         if len(inenler) != 1:
             duzenlenecek.edit_text("You can download only one file.")
         else:
             LOGGER.info(inenler[0])
             s_time = time.time()
+            
+            # thumb
+            thumb = os.path.join("thumbnails", str(message.from_user.id) + ".jpg")
+            if not os.path.isfile(thumb): thumb = None
+
+            # upload
             message.reply_document(inenler[0],
                 caption=f"[💚](https://huzunluartemis.github.io/MailruDownBot/) {os.path.basename(inenler[0])}",
                 parse_mode=ParseMode.MARKDOWN, quote=True, progress=progress_for_pyrogram,
-                progress_args=("Uploading",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD
+                progress_args=(f"Uploading: `{file_name}`",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD,
+                thumb=thumb
             )
             duzenlenecek.edit_text("Finished.")
             time.sleep(10)
@@ -121,4 +125,5 @@ def welcome(client:Client, message: Message):
     if ForceSub(client, message) == 400: return
     te = "🇹🇷 Esenlikler. Bir mail.ru linki gönder ve sihrimi izle."
     te += "\n🇬🇧 Hi. Send me a mail.ru link and see my magic."
+    te += "\n\nSet Thumbnail? Here: /save /clear /show"
     message.reply_text(te)

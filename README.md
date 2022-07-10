@@ -14,6 +14,7 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 - Auth users or public
 - Limit download size
 - Force Subscribe
+- Custom thumbnail for each user. Use: /save /clear /show
 - Logger, Pinger, Shell executer
 
 ## To-Do
