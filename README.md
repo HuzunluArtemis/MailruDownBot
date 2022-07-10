@@ -16,6 +16,7 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 - Force Subscribe
 - Upload with custom filename
 - Custom thumbnail for each user. Use: /save /clear /show
+- Server stats & Dyno usage for heroku. Use: /stats
 - Logger, Pinger, Shell executer
 
 ## To-Do
@@ -33,6 +34,8 @@ Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 - `MAX_FILESIZE`: Allowed max filesize in bytes. Default is telegram's maximum filesize.
 - `USE_ARIA2`: Use aria2 for downloads. Faster. Example: `False` Default: `True`
 - `LOG_CHANNEL`: Log all downloads for spammers etc. Give channel id or simply your id.
+- `HEROKU_API_KEY`: For dyno usage in /stats - Optional.
+- `HEROKU_APP_NAME`: For dyno usage in /stats - Optional.
 - `CHANNEL_OR_CONTACT`: your users contact link. give your username. example: HuzunluArtemis
 - `FORCE_SUBSCRIBE_CHANNEL`: forcesub channel. optional. give channel id like `-1006616516165` or channel username like `HuzunluArtemis`
 - Dont use heroku-20 or heroku-18. Use container. Use button.

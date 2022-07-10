@@ -24,14 +24,14 @@ def clear_downs():
     except: pass
     if not os.path.isdir("downloads"): os.mkdir("downloads")
 
-def run_task(message: Message, duzenlenecek: Message):
+def run_task(gelen: Message, duzenlenecek: Message):
     try:
         # custom filename
-        link = message.text
+        link = gelen.text
         fn =  link.splitlines()
         if len(fn) == 1:
             fn = None
-            link = message.text
+            link = gelen.text
         elif len(fn) == 2:
             link = fn[0]
             fn = fn[1]
@@ -52,10 +52,10 @@ def run_task(message: Message, duzenlenecek: Message):
         # log
         if Config.LOG_CHANNEL:
             try:
-                message._client.send_message(
+                gelen._client.send_message(
                     Config.LOG_CHANNEL,
-                    f"#NewDownload\n\nUser: {message.from_user.mention}\n" +
-                    f"User ID: `{message.from_user.id}`\nLink: {link}" +
+                    f"#NewDownload\n\nUser: {gelen.from_user.mention}\n" +
+                    f"User ID: `{gelen.from_user.id}`\nLink: {link}" +
                     f"\nFilesize: {humanbytes(file_size)} ({file_size} bytes)\nFilename: `{fn}`"
             ) 
             except Exception as e:
@@ -94,11 +94,11 @@ def run_task(message: Message, duzenlenecek: Message):
             s_time = time.time()
             
             # thumb
-            thumb = os.path.join("thumbnails", str(message.from_user.id) + ".jpg")
+            thumb = os.path.join("thumbnails", str(gelen.from_user.id) + ".jpg")
             if not os.path.isfile(thumb): thumb = None
             
             # upload
-            message.reply_document(inenler[0],
+            gelen.reply_document(inenler[0],
                 caption=f"[💚](https://huzunluartemis.github.io/MailruDownBot/) {fn}\n💜 {link}",
                 parse_mode=ParseMode.MARKDOWN, quote=True, progress=progress_for_pyrogram,
                 progress_args=(f"Uploading: `{fn}`",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD,
@@ -124,18 +124,18 @@ def on_task_complete():
         run_task(quee[0][0], quee[0][1])
 
 @Client.on_message(filters.regex(r'\bhttps?://.*cloud\.mail\.ru\S+'))
-def handler(client:Client, message: Message):
+def handler(_, message: Message):
     if not AuthUserCheck(message): return
-    if ForceSub(client, message) == 400: return
+    if ForceSub(message) == 400: return
     # add to quee
     duz = message.reply_text(f"✅ Your Turn: {len(quee)+1}\nWait. Dont spam with same link.", quote=True)
     quee.append([message, duz])
     if len(quee) == 1: run_task(message, duz)
 
 @Client.on_message(filters.command(["help", "yardım", "yardim", "start"]))
-def welcome(client:Client, message: Message):
+def welcome(_, message: Message):
     if not AuthUserCheck(message): return
-    if ForceSub(client, message) == 400: return
+    if ForceSub(message) == 400: return
     te = "🇹🇷 Esenlikler. Bir mail.ru linki gönder ve sihrimi izle."
     te += "\n🇬🇧 Hi. Send me a mail.ru link and see my magic."
     te += "\n\nCustom filename: [link] (newline) [filename with extension]"

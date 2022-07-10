@@ -15,6 +15,9 @@ class Config:
     FORCE_DOC_UPLOAD = os.environ.get('FORCE_DOC_UPLOAD', "False").lower() == "true"
     LOG_CHANNEL = os.environ.get('LOG_CHANNEL', "")
 
+    HEROKU_API_KEY  = os.environ.get('HEROKU_API_KEY ', "")
+    HEROKU_APP_NAME  = os.environ.get('HEROKU_APP_NAME ', "")
+
     try:
         MAX_FILESIZE = int(os.environ.get('MAX_FILESIZE', ''))
         if len(MAX_FILESIZE) == 0 or int(MAX_FILESIZE) > 2097151000:
@@ -40,3 +43,5 @@ class Config:
     # fixing vars
     if FORCE_SUBSCRIBE_CHANNEL == "" or FORCE_SUBSCRIBE_CHANNEL == " " or FORCE_SUBSCRIBE_CHANNEL == None: FORCE_SUBSCRIBE_CHANNEL = None # bu satıra dokunmayın.
     if LOG_CHANNEL == "" or LOG_CHANNEL == " " or LOG_CHANNEL == None: LOG_CHANNEL = None # bu satıra dokunmayın.
+    if HEROKU_API_KEY  == "" or HEROKU_API_KEY == " " or HEROKU_API_KEY == None: HEROKU_API_KEY = None # bu satıra dokunmayın.
+    if HEROKU_APP_NAME  == "" or HEROKU_APP_NAME == " " or HEROKU_APP_NAME == None: HEROKU_APP_NAME = None # bu satıra dokunmayın.

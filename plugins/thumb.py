@@ -9,7 +9,7 @@ from helper_funcs.force_sub import ForceSub
 @Client.on_message(filters.command("save"))
 def save_thumb(client:Client, message:Message):
     if not AuthUserCheck(message): return
-    if ForceSub(client, message) == 400: return
+    if ForceSub(message) == 400: return
     thumbnail_location = "thumbnails"
     if not os.path.isdir(thumbnail_location): os.mkdir(thumbnail_location)
     thumb_image_path = os.path.join(thumbnail_location, str(message.from_user.id) + ".jpg")
@@ -28,9 +28,9 @@ def save_thumb(client:Client, message:Message):
             "🇹🇷 Özel küçük resmi kaydetmek için bir fotoğrafı bununla yanıtlayın")
 
 @Client.on_message(filters.command("clear"))
-def clear_thumb(client:Client, message:Message):
+def clear_thumb(_, message:Message):
     if not AuthUserCheck(message): return
-    if ForceSub(client, message) == 400: return
+    if ForceSub(message) == 400: return
     thumbnail_location = "thumbnails"
     thumb_image_path = os.path.join(thumbnail_location, str(message.from_user.id) + ".jpg")
     if os.path.exists(thumb_image_path):
@@ -40,9 +40,9 @@ def clear_thumb(client:Client, message:Message):
         message.reply_text("❌\n\n🇬🇧 Nothing to clear\n🇹🇷 Temizlenecek bir şey yok. Sensin pis")
 
 @Client.on_message(filters.command("show"))
-def show_thumb(client:Client, message:Message):
+def show_thumb(_, message:Message):
     if not AuthUserCheck(message): return
-    if ForceSub(client, message) == 400: return
+    if ForceSub(message) == 400: return
     thumbnail_location = "thumbnails"
     thumb_image_path = os.path.join(thumbnail_location, str(message.from_user.id) + ".jpg")
     if os.path.exists(thumb_image_path):

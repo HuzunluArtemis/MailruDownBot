@@ -3,6 +3,7 @@
 import logging
 import os
 import shutil
+import time
 from config import Config
 from pyrogram import idle
 import pyrogram
@@ -10,6 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
     handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
     level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
+botStartTime = time.time()
 
 if __name__ == '__main__':
     if os.path.isdir("thumbnails"): shutil.rmtree("thumbnails")
