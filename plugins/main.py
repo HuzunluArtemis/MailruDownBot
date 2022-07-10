@@ -70,7 +70,7 @@ def run_task(message: Message, duzenlenecek: Message):
             cmd.append("--split=10")
             cmd.append(f"-d {path}")
             cmd.append(f"-o {file_name}")
-            cmd.append(dl_url)
+            cmd.append(f"'{dl_url}'")
         else:
             cmd = f'python3 CloudMailruDL.py -d "{path}" {message.text}'
         LOGGER.info(cmd)
