@@ -2,3 +2,4 @@ pyrogram
 tgcrypto
 aria2p
 heroku3
+psutil
