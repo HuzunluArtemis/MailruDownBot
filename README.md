@@ -2,7 +2,9 @@
 
 🇹🇷 Mail.ru'dan telegram'a dosya aktaran bot.
 
-🇬🇧 A bot that downloads files from mail.ru and uploads to telegram.
+🇬🇧 A bot that upload files from mail.ru to telegram.
+
+Demo in telegram: [@MailruDownBot](https://t.me/MailruDownBot)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/HuzunluArtemis/MailruDownBot)
 
