@@ -26,8 +26,20 @@ def clear_downs():
 
 def run_task(message: Message, duzenlenecek: Message):
     try:
+        # custom filename
+        link = message.text
+        fn =  link.splitlines()
+        if len(fn) == 1:
+            fn = None
+            link = message.text
+        elif len(fn) == 2:
+            link = fn[0]
+            fn = fn[1]
+        else:
+            duzenlenecek.edit_text("Your message should be like:\n\nLine 1: mailru link.\nLine 2: Custom filename with extension.")
+            return on_task_complete()
         # parse data from link
-        command = f'python helper_funcs/CloudMailruDL.py -s {message.text}'
+        command = f'python helper_funcs/CloudMailruDL.py -s {link}'
         result = popen(command).read()
         result = result.splitlines()[-1]
         data = json.loads(result)
@@ -42,7 +54,7 @@ def run_task(message: Message, duzenlenecek: Message):
                 message._client.send_message(
                     Config.LOG_CHANNEL,
                     f"#NewDownload\n\nUser: {message.from_user.mention}\n" +
-                    f"User ID: `{message.from_user.id}`\nLink: {message.text}" +
+                    f"User ID: `{message.from_user.id}`\nLink: {link}" +
                     f"\nFilesize: {humanbytes(file_size)} ({file_size} bytes)\nFilename: `{file_name}`"
             ) 
             except Exception as e:
@@ -61,7 +73,7 @@ def run_task(message: Message, duzenlenecek: Message):
         # download = aria2.add_uris([dl_url], {'dir': path}) ?
             cmd = f'aria2c --split=10 --min-split-size=10M --max-connection-per-server=10 --daemon=false --allow-overwrite=true -d "{path}" -o "{file_name}" "{dl_url}"'
         else:
-            cmd = f'python3 CloudMailruDL.py -d "{path}" {message.text}'
+            cmd = f'python3 CloudMailruDL.py -d "{path}" {link}'
         LOGGER.info(cmd)
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, cwd="helper_funcs")
         stdout, stderr = proc.communicate()
@@ -83,13 +95,13 @@ def run_task(message: Message, duzenlenecek: Message):
             # thumb
             thumb = os.path.join("thumbnails", str(message.from_user.id) + ".jpg")
             if not os.path.isfile(thumb): thumb = None
-
+            
             # upload
             message.reply_document(inenler[0],
-                caption=f"[💚](https://huzunluartemis.github.io/MailruDownBot/) {os.path.basename(inenler[0])}",
+                caption=f"[💚](https://huzunluartemis.github.io/MailruDownBot/) {fn}\n💜 {link}",
                 parse_mode=ParseMode.MARKDOWN, quote=True, progress=progress_for_pyrogram,
                 progress_args=(f"Uploading: `{file_name}`",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD,
-                thumb=thumb
+                thumb=thumb, file_name=fn
             )
             duzenlenecek.edit_text("Finished.")
             time.sleep(10)
@@ -125,5 +137,9 @@ def welcome(client:Client, message: Message):
     if ForceSub(client, message) == 400: return
     te = "🇹🇷 Esenlikler. Bir mail.ru linki gönder ve sihrimi izle."
     te += "\n🇬🇧 Hi. Send me a mail.ru link and see my magic."
-    te += "\n\nSet Thumbnail? Here: /save /clear /show"
+    te += "\n\nCustom filename: [link] (newline) [filename with extension]"
+    te += "\nExample:\n\n`https://cloud.mail.ru/public/huzunlu/artemis\nHuzunluArtemis.exe`"
+    te += "\n\nSet Thumbnail: /save"
+    te += "\nClear Thumbnail: /clear"
+    te += "\nShow Thumbnail: /show"
     message.reply_text(te)
