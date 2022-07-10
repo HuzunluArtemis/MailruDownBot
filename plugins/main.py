@@ -45,8 +45,9 @@ def run_task(message: Message, duzenlenecek: Message):
         data = json.loads(result)
         
         dl_url = data['download']
+        LOGGER.info(f"Download url: {dl_url}")
         file_size = int(data['file_size'])
-        file_name = data['file_name']
+        if not fn: fn = data['file_name']
 
         # log
         if Config.LOG_CHANNEL:
@@ -55,7 +56,7 @@ def run_task(message: Message, duzenlenecek: Message):
                     Config.LOG_CHANNEL,
                     f"#NewDownload\n\nUser: {message.from_user.mention}\n" +
                     f"User ID: `{message.from_user.id}`\nLink: {link}" +
-                    f"\nFilesize: {humanbytes(file_size)} ({file_size} bytes)\nFilename: `{file_name}`"
+                    f"\nFilesize: {humanbytes(file_size)} ({file_size} bytes)\nFilename: `{fn}`"
             ) 
             except Exception as e:
                 LOGGER.exception(e)
@@ -71,7 +72,7 @@ def run_task(message: Message, duzenlenecek: Message):
         path = os.path.join(os.getcwd(), "downloads")
         if Config.USE_ARIA2:
         # download = aria2.add_uris([dl_url], {'dir': path}) ?
-            cmd = f'aria2c --split=10 --min-split-size=10M --max-connection-per-server=10 --daemon=false --allow-overwrite=true -d "{path}" -o "{file_name}" "{dl_url}"'
+            cmd = f'aria2c --split=10 --min-split-size=10M --max-connection-per-server=10 --daemon=false --allow-overwrite=true -d "{path}" -o "{fn}" "{dl_url}"'
         else:
             cmd = f'python3 CloudMailruDL.py -d "{path}" {link}'
         LOGGER.info(cmd)
@@ -100,7 +101,7 @@ def run_task(message: Message, duzenlenecek: Message):
             message.reply_document(inenler[0],
                 caption=f"[💚](https://huzunluartemis.github.io/MailruDownBot/) {fn}\n💜 {link}",
                 parse_mode=ParseMode.MARKDOWN, quote=True, progress=progress_for_pyrogram,
-                progress_args=(f"Uploading: `{file_name}`",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD,
+                progress_args=(f"Uploading: `{fn}`",  duzenlenecek, s_time), force_document=Config.FORCE_DOC_UPLOAD,
                 thumb=thumb, file_name=fn
             )
             duzenlenecek.edit_text("Finished.")
