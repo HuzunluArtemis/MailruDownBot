@@ -62,15 +62,7 @@ def run_task(message: Message, duzenlenecek: Message):
         path = os.path.join(os.getcwd(), "downloads")
         if Config.USE_ARIA2:
         # download = aria2.add_uris([dl_url], {'dir': path}) ?
-            cmd = ["aria2c"]
-            cmd.append("--allow-overwrite=true")
-            cmd.append("--daemon=false")
-            cmd.append("--max-connection-per-server=10")
-            cmd.append("--min-split-size=10M")
-            cmd.append("--split=10")
-            cmd.append(f"-d {path}")
-            cmd.append(f"-o {file_name}")
-            cmd.append(f"'{dl_url}'")
+            cmd = f"aria2c --split=10 --min-split-size=10M --max-connection-per-server=10 --daemon=false --allow-overwrite=true {dl_url} -d {path} -o {file_name}"
         else:
             cmd = f'python3 CloudMailruDL.py -d "{path}" {message.text}'
         LOGGER.info(cmd)
