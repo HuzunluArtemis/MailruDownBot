@@ -31,7 +31,10 @@ start - bot help
 save - reply a photo to save thumbnail
 clear - clear thumbnail
 show - show thumbnail
+ping - check bot online status
 stats - bot statistics
+shell - execute shell command ❗ admin only
+log - send bot logs ❗ admin only
 ```
 
 ## Environment Variables
